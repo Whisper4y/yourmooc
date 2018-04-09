@@ -1,0 +1,69 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.kite3.dao.UserFollowsDao">
+
+	<select id="getById" resultType="UserFollows" parameterType="int">
+		SELECT *
+		FROM t_user_follows
+		WHERE id = #{id, jdbcType=INTEGER}
+	</select>
+
+	<select id="queryAll" resultType="UserFollows" parameterType="UserFollows">
+		SELECT *
+		FROM t_user_follows
+		<trim prefix="WHERE " prefixOverrides="AND |OR ">
+			<if test="userId != null">
+				AND user_id = #{userId, jdbcType=INTEGER}
+			</if>
+			<if test="followId != null">
+				AND follow_id = #{followId, jdbcType=INTEGER}
+			</if>
+		</trim>
+		ORDER BY id
+	</select>
+	
+	<select id="getTotalItemsCount" resultType="int" parameterType="UserFollows">
+		SELECT COUNT(*) FROM t_user_follows
+	</select>
+
+	<select id="queryPage" resultType="UserFollows">
+		SELECT *
+		FROM t_user_follows
+		<trim prefix="WHERE " prefixOverrides="AND |OR "> 
+			<if test="param1.userId != null">
+				AND user_id = #{param1.userId}
+			</if>
+		</trim>
+		ORDER BY id
+		LIMIT #{param2.startIndex, jdbcType=INTEGER} , #{param2.pageSize, jdbcType=INTEGER}
+	</select>
+	
+	<delete id="delete" parameterType="UserFollows" >
+		DELETE FROM t_user_follows
+		WHERE id = #{id, jdbcType=INTEGER}
+	</delete>
+
+	<insert id="createSelectivity" parameterType="UserFollows" flushCache="true" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO t_user_follows
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="userId != null ">
+				user_id,
+			</if>
+			<if test="followId != null ">
+				follow_id,
+			</if>
+		</trim>
+		VALUES
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="userId != null ">
+				#{userId, jdbcType=INTEGER},
+			</if>
+			<if test="followId != null ">
+				#{followId, jdbcType=INTEGER},
+			</if>
+		</trim>
+	</insert>
+
+</mapper>
