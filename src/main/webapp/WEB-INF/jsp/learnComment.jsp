@@ -92,8 +92,7 @@
 						</div>
 					</div>	
 				</c:forEach>
-				
-				<%@ include file="common/tailPage.jsp" %>
+
 				</c:if>
 				<!-- 评论区 end -->
 			</div>

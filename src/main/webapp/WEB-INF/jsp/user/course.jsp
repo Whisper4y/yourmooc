@@ -32,7 +32,6 @@
 					<div class="comment-main" style="width: 100%">
 						<a href="<%=path %>/course/learn/${item.courseId}" class="user-name link-a" style="font-size:20px;">${item.courseName}</a>
 						<div class="comment-content">
-							<span class="learn-rate">已学${item.rate}%</span>
 							<span>
 							<a href="<%=path %>/course/video/${item.sectionId}">
 							${item.sectionName}

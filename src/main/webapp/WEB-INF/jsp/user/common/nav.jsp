@@ -43,19 +43,6 @@
 		> 我的关注  <span>&gt;</span></li>
 	</a>
 	
-	<a href="http://localhost:8080/yourmooc/user/comment">
-		<li 
-			<c:choose>
-			  <c:when test="${not empty curNav && curNav == 'comment'}">
-			    class="user-menu-nav-cur"
-			  </c:when>
-			  <c:otherwise>
-			    class="user-menu-nav"
-			  </c:otherwise>
-			</c:choose>
-		>我的评论<span>&gt;</span></li>
-	</a>
-	
 	<a href="http://localhost:8080/yourmooc/user/info">
 		<li 
 			<c:choose>

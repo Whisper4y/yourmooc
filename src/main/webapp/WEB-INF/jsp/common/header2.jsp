@@ -4,7 +4,7 @@
 		<nav class="header-nav">
 			<a href="/yourmooc/" class="header-nav-item">首 页</a>
 			<a href="/yourmooc/course/list" class="header-nav-item">分类</a>
-			<a href="/yourmooc/user/info" class="header-nav-item">我的</a>
+			<a href="/yourmooc/user/course" class="header-nav-item">我的</a>
 		</nav>
 	</div>
 </div>
