@@ -77,13 +77,13 @@ public class AuthController {
 			ModelAndView mv = new ModelAndView("redirect:login");
 			request.getSession().setAttribute("errCode", "账号或密码错误！");
 			// TODO：失败重定向后如何提示用户？
-			mv.addObject("errCode", 1);
+			mv.addObject("errCode", 2);
 			return mv;
 		} else {
 			if (!tmpUser.getPassword().equals(user.getPassword())) {
 				ModelAndView mv = new ModelAndView("redirect:login");
 				// TODO：失败重定向后如何提示用户？
-				mv.addObject("errCode", 1);
+				mv.addObject("errCode", 3);
 				return mv;
 			}
 		}

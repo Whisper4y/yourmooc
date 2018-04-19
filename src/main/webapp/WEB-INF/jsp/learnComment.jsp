@@ -26,7 +26,7 @@
 						<div class="course-meta">
 							<a href="#" class="learn-btn" >继续学习</a>
 							
-							<!-- TODO：当前课程章节 -->
+							<!-- 当前课程章节 -->
 							<div class="static-item"  >
 								<div class="meta">上次学到</div>
 								<div class="meta-value">1-1 感受神秘的涟漪效果之美感受神秘的涟漪效果之美</div>
