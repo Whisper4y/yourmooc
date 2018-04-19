@@ -1,11 +1,13 @@
 package org.kite3.web;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.kite3.entity.User;
 import org.kite3.entity.UserCollections;
+import org.kite3.service.CourseService;
 import org.kite3.service.UserCollectionsService;
 import org.kite3.service.UserService;
 import org.kite3.util.JsonView;
@@ -25,6 +27,9 @@ public class UserCollectionsController {
 	@Autowired
 	UserService userService;
 
+	@Autowired
+    CourseService courseService;
+
 	/**
 	 * 用户收藏
 	 *
@@ -42,7 +47,10 @@ public class UserCollectionsController {
 		UserCollections userCollections = new UserCollections();
 		userCollections.setUserId(curUserId);
 		userCollections.setCourseId(courseId);
-		
+		// 获取当前课程名称
+		userCollections.setCourseName(courseService.getById(courseId).getName());
+		userCollections.setCreateTime(new Date());
+
 		List<UserCollections> list = userCollectionsService.queryAll(userCollections);
 
 		if (!CollectionUtils.isEmpty(list)) {

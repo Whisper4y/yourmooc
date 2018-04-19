@@ -1,10 +1,10 @@
-<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8" %>
 <%@ include file="common/tag.jsp" %>
 
 <!DOCTYPE html>
 <html lang="utf-8">
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<title>课程分类</title>
 
@@ -56,11 +56,14 @@
 	<div class="types-block clearfix" style="padding:0px;">
 		<h3 style="margin-bottom: 20px;">
 			<span class="types-title" style="margin-right:40px;">课程列表</span>
-			<a href="javascript:void(0)" style="display: inline-block;margin-right:20px;" onclick="_queryPage(1,undefined,'last')">
-				<span <c:if test="${not empty sort && sort == 'last'}">class="color-oc"</c:if> >最新</span>
+			<a href="javascript:void(0)" style="display: inline-block;margin-right:20px;"
+				 onclick="_queryPage(1,undefined,'last')">
+				<span
+						<c:if test="${not empty sort && sort == 'last'}">class="color-oc"</c:if> >最新</span>
 			</a>
 			<a href="javascript:void(0)" style="display: inline-block;" onclick="_queryPage(1,undefined,'pop')">
-				<span <c:if test="${not empty sort && sort == 'pop'}">class="color-oc"</c:if> >最热</span>
+				<span
+						<c:if test="${not empty sort && sort == 'pop'}">class="color-oc"</c:if> >最热</span>
 			</a>
 		</h3>
 		<div class="types-content clearfix" style="margin-bottom: 20px;">
@@ -70,7 +73,8 @@
 					<c:forEach items="${page.items}" var="item" varStatus="status">
 						<c:set var="n" value="${status.index + 1}"></c:set>
 						<a href="<%=path %>/course/learn/${item.id}">
-							<div class="course-card-container" <c:if test="${n % 5 == 0}">style="margin-right: 0px;"</c:if> >
+							<div class="course-card-container"
+									 <c:if test="${n % 5 == 0}">style="margin-right: 0px;"</c:if> >
 								<c:choose>
 								<c:when test="${n %5 == 0}">
 								<div class="course-card-top green-bg">
@@ -143,12 +147,12 @@
      * @param  {String} code    [分类码]
      * @param  {String} sort    [排序方式：last-最新，pop-最热]
      */
-    function _queryPage(pageNum,code,sort) {
+    function _queryPage(pageNum, code, sort) {
         var params = '?pageNum=' + pageNum;
         //分类，参数没有就用页面缓存
-        if(code === undefined){//来自于分页按钮
+        if (code === undefined) {//来自于分页按钮
             code = _curCode;
-            if(_curSubCode !== '-2')code = _curSubCode;
+            if (_curSubCode !== '-2') code = _curSubCode;
         }
         if (code === '-2') {  // 点击二级分类的全部
             code = _curCode;
@@ -157,11 +161,11 @@
             params += '&c=' + code;
         }
         //排序，函数参数没有就用页面缓存
-        if(sort === undefined && _sort !== ''){
+        if (sort === undefined && _sort !== '') {
             sort = _sort;
         }
-        if(sort !== undefined){
-            params += '&sort='+sort;
+        if (sort !== undefined) {
+            params += '&sort=' + sort;
         }
         window.location.href = '<%=path%>/course/list' + params;
     }

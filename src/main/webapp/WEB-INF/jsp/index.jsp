@@ -205,7 +205,7 @@
 					<div class="clearfix">
 						<c:forEach items="${javaCourseList}" var="javaCourse" varStatus="status">
 							<c:if test="${status.index > 2}">
-								<a href="<%=path%>/course/learn/${javaCourse.id}" target="_black">
+								<a href="<%=path%>/course/learn/${javaCourse.id}">
 									<div class="course-card-container"
 											 <c:if test="${status.index == 6}">style="margin-right: 0px;"</c:if> >
 										<div class="course-card-top green-bg">

@@ -1,10 +1,5 @@
 package org.kite3.web;
 
-import java.io.File;
-import java.io.IOException;
-
-import javax.servlet.http.HttpServletRequest;
-
 import org.apache.commons.io.FileUtils;
 import org.kite3.dto.UserCourseSectionDto;
 import org.kite3.entity.User;
@@ -25,6 +20,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+
+import javax.servlet.http.HttpServletRequest;
+import java.io.File;
+import java.io.IOException;
 
 /**
  * 个人中心

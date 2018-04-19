@@ -54,14 +54,26 @@
 			<if test="followId != null ">
 				follow_id,
 			</if>
+      <if test="followName != null ">
+        follow_name,
+      </if>
+			<if test="createTime != null ">
+				create_time,
+			</if>
 		</trim>
 		VALUES
 		<trim prefix="(" suffix=")" suffixOverrides=",">
 			<if test="userId != null ">
-				#{userId, jdbcType=INTEGER},
+				#{userId},
 			</if>
-			<if test="followId != null ">
-				#{followId, jdbcType=INTEGER},
+      <if test="followId != null ">
+        #{followId},
+      </if>
+      <if test="followName != null ">
+        #{followName},
+      </if>
+			<if test="createTime != null ">
+				#{createTime},
 			</if>
 		</trim>
 	</insert>

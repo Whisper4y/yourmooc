@@ -1,5 +1,6 @@
 package org.kite3.web;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -40,6 +41,9 @@ public class UserFollowsController {
 		UserFollows userFollows = new UserFollows();
 		userFollows.setUserId(curUserId);
 		userFollows.setFollowId(followId);
+		userFollows.setFollowName(userService.getById(followId).getUsername());
+		userFollows.setCreateTime(new Date());
+
 		List<UserFollows> list = userFollowsService.queryAll(userFollows);
 
 		if (!CollectionUtils.isEmpty(list)) {
@@ -66,6 +70,7 @@ public class UserFollowsController {
 		UserFollows userFollows = new UserFollows();
 		userFollows.setUserId(curUserId);
 		userFollows.setFollowId(followId);
+
 		List<UserFollows> list = userFollowsService.queryAll(userFollows);
 
 		if (!CollectionUtils.isEmpty(list)) { // 关注成功

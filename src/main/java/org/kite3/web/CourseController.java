@@ -65,8 +65,6 @@ public class CourseController {
 
 		// 获取课程
 		Course course = courseService.getById(courseId);
-		if (null == course)
-			return new ModelAndView("error/404");
 		mv.addObject("course", course);
 
 		// 获取课程章节
