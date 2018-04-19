@@ -10,14 +10,14 @@ import org.kite3.entity.CourseSection;
  */
 public class CourseSectionDto extends CourseSection {
 
-	// 小节
-	private List<CourseSection> sections = new ArrayList<CourseSection>();
+    // 小节
+    private List<CourseSection> sections = new ArrayList<CourseSection>();
 
-	public List<CourseSection> getSections() {
-		return sections;
-	}
+    public List<CourseSection> getSections() {
+        return sections;
+    }
 
-	public void setSections(List<CourseSection> sections) {
-		this.sections = sections;
-	}
+    public void setSections(List<CourseSection> sections) {
+        this.sections = sections;
+    }
 }

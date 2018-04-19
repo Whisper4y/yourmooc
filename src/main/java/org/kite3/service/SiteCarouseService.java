@@ -6,9 +6,9 @@ import org.kite3.entity.SiteCarousel;
 
 public interface SiteCarouseService {
 
-	/**
-	 * 获取轮播
-	 **/
-	public List<SiteCarousel> queryCarousels(int count);
+    /**
+     * 获取轮播
+     **/
+    public List<SiteCarousel> queryCarousels(int count);
 
 }

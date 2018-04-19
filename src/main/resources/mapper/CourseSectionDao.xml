@@ -1,28 +1,28 @@
 <!DOCTYPE mapper
-        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="org.kite3.dao.CourseSectionDao">
 
-	<select id="getById" resultType="CourseSection" parameterType="int">
-		SELECT *
-		FROM t_course_section
-		WHERE id = #{id, jdbcType=INTEGER}
-	</select>
-	
-	<select id="queryAll" resultType="CourseSection" parameterType="CourseSection">
-		SELECT *
-		FROM t_course_section 
-		<trim prefix="WHERE " prefixOverrides="AND |OR "> 
-			<if test="courseId != null">
-				AND course_id = #{courseId, jdbcType=INTEGER}
-			</if>
-		</trim>
-		ORDER BY parent_id
-	</select>
-	
-	<select id="getTotalItemsCount" resultType="int" parameterType="CourseSection">
-		SELECT COUNT(*) FROM t_course_section
-	</select>
+  <select id="getById" resultType="CourseSection" parameterType="int">
+    SELECT *
+    FROM t_course_section
+    WHERE id = #{id, jdbcType=INTEGER}
+  </select>
+
+  <select id="queryAll" resultType="CourseSection" parameterType="CourseSection">
+    SELECT *
+    FROM t_course_section
+    <trim prefix="WHERE " prefixOverrides="AND |OR ">
+      <if test="courseId != null">
+        AND course_id = #{courseId, jdbcType=INTEGER}
+      </if>
+    </trim>
+    ORDER BY parent_id
+  </select>
+
+  <select id="getTotalItemsCount" resultType="int" parameterType="CourseSection">
+    SELECT COUNT(*) FROM t_course_section
+  </select>
 
 </mapper>

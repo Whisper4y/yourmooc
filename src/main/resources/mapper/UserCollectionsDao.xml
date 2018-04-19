@@ -1,84 +1,84 @@
 <!DOCTYPE mapper
-        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="org.kite3.dao.UserCollectionsDao">
 
-    <select id="getById" resultType="UserCollections" parameterType="int">
-        SELECT *
-        FROM t_user_collections
-        WHERE id = #{id, jdbcType=INTEGER}
-    </select>
+  <select id="getById" resultType="UserCollections" parameterType="int">
+    SELECT *
+    FROM t_user_collections
+    WHERE id = #{id, jdbcType=INTEGER}
+  </select>
 
-    <select id="queryAll" resultType="UserCollections" parameterType="UserCollections">
-        SELECT *
-        FROM t_user_collections
-        <trim prefix="WHERE " prefixOverrides="AND |OR ">
-            <if test="userId != null">
-                AND user_id = #{userId, jdbcType=INTEGER}
-            </if>
-            <if test="courseId != null">
-                AND course_id = #{courseId, jdbcType=INTEGER}
-            </if>
-        </trim>
-        ORDER BY id
-    </select>
+  <select id="queryAll" resultType="UserCollections" parameterType="UserCollections">
+    SELECT *
+    FROM t_user_collections
+    <trim prefix="WHERE " prefixOverrides="AND |OR ">
+      <if test="userId != null">
+        AND user_id = #{userId, jdbcType=INTEGER}
+      </if>
+      <if test="courseId != null">
+        AND course_id = #{courseId, jdbcType=INTEGER}
+      </if>
+    </trim>
+    ORDER BY id
+  </select>
 
-    <select id="getTotalItemsCount" resultType="int" parameterType="UserCollections">
-        SELECT COUNT(*)
-        FROM t_user_collections
-        WHERE user_id = #{userId, jdbcType=INTEGER}
-    </select>
+  <select id="getTotalItemsCount" resultType="int" parameterType="UserCollections">
+    SELECT COUNT(*)
+    FROM t_user_collections
+    WHERE user_id = #{userId, jdbcType=INTEGER}
+  </select>
 
-    <select id="queryPage" resultType="UserCollections">
-        SELECT *
-        FROM t_user_collections
-        <trim prefix="WHERE " prefixOverrides="AND |OR ">
-            <if test="param1.userId != null">
-                AND user_id = #{param1.userId}
-            </if>
-        </trim>
-        ORDER BY id DESC
-        LIMIT #{param2.startIndex, jdbcType=INTEGER} , #{param2.pageSize,jdbcType=INTEGER}
-    </select>
+  <select id="queryPage" resultType="UserCollections">
+    SELECT *
+    FROM t_user_collections
+    <trim prefix="WHERE " prefixOverrides="AND |OR ">
+      <if test="param1.userId != null">
+        AND user_id = #{param1.userId}
+      </if>
+    </trim>
+    ORDER BY id DESC
+    LIMIT #{param2.startIndex, jdbcType=INTEGER} , #{param2.pageSize,jdbcType=INTEGER}
+  </select>
 
-    <insert id="createSelectivity" parameterType="UserCollections" flushCache="true" useGeneratedKeys="true"
-            keyProperty="id">
-        INSERT INTO t_user_collections
-        <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="userId != null ">
-                user_id,
-            </if>
-            <if test="courseId != null ">
-                course_id,
-            </if>
-            <if test="courseName != null ">
-                course_name,
-            </if>
-            <if test="createTime != null ">
-                create_time,
-            </if>
-        </trim>
-        VALUES
-        <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="userId != null ">
-                #{userId},
-            </if>
-            <if test="courseId != null ">
-                #{courseId},
-            </if>
-            <if test="courseName != null ">
-                #{courseName},
-            </if>
-            <if test="createTime != null ">
-                #{createTime},
-            </if>
-        </trim>
-    </insert>
+  <insert id="createSelectivity" parameterType="UserCollections" flushCache="true" useGeneratedKeys="true"
+          keyProperty="id">
+    INSERT INTO t_user_collections
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userId != null ">
+        user_id,
+      </if>
+      <if test="courseId != null ">
+        course_id,
+      </if>
+      <if test="courseName != null ">
+        course_name,
+      </if>
+      <if test="createTime != null ">
+        create_time,
+      </if>
+    </trim>
+    VALUES
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userId != null ">
+        #{userId},
+      </if>
+      <if test="courseId != null ">
+        #{courseId},
+      </if>
+      <if test="courseName != null ">
+        #{courseName},
+      </if>
+      <if test="createTime != null ">
+        #{createTime},
+      </if>
+    </trim>
+  </insert>
 
-    <delete id="delete" parameterType="UserCollections">
-        DELETE FROM t_user_collections
-        WHERE id = #{id, jdbcType=INTEGER}
-    </delete>
+  <delete id="delete" parameterType="UserCollections">
+    DELETE FROM t_user_collections
+    WHERE id = #{id, jdbcType=INTEGER}
+  </delete>
 
 </mapper>

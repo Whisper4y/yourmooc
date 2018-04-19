@@ -4,56 +4,56 @@ import org.kite3.entity.UserCourseSection;
 
 public class UserCourseSectionDto extends UserCourseSection {
 
-	/**
-	 * 用户名
-	 */
-	private String username;
+    /**
+     * 用户名
+     */
+    private String username;
 
-	/**
-	 * 课程名
-	 */
-	private String courseName;
+    /**
+     * 课程名
+     */
+    private String courseName;
 
-	/**
-	 * 章节名
-	 */
-	private String sectionName;
+    /**
+     * 章节名
+     */
+    private String sectionName;
 
-	/**
-	 * 用户头像
-	 */
-	private String header;
+    /**
+     * 用户头像
+     */
+    private String header;
 
-	public String getUsername() {
-		return username;
-	}
+    public String getUsername() {
+        return username;
+    }
 
-	public void setUsername(String username) {
-		this.username = username;
-	}
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
-	public String getCourseName() {
-		return courseName;
-	}
+    public String getCourseName() {
+        return courseName;
+    }
 
-	public void setCourseName(String courseName) {
-		this.courseName = courseName;
-	}
+    public void setCourseName(String courseName) {
+        this.courseName = courseName;
+    }
 
-	public String getSectionName() {
-		return sectionName;
-	}
+    public String getSectionName() {
+        return sectionName;
+    }
 
-	public void setSectionName(String sectionName) {
-		this.sectionName = sectionName;
-	}
+    public void setSectionName(String sectionName) {
+        this.sectionName = sectionName;
+    }
 
-	public String getHeader() {
-		return header;
-	}
+    public String getHeader() {
+        return header;
+    }
 
-	public void setHeader(String header) {
-		this.header = header;
-	}
+    public void setHeader(String header) {
+        this.header = header;
+    }
 
 }

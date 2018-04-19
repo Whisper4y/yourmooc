@@ -6,9 +6,9 @@ import org.kite3.dto.CourseSectionDto;
 
 public interface CourseBusiness {
 
-	/**
-	 * 获取课程章节
-	 */
-	List<CourseSectionDto> queryCourseSection(int courseId);
+    /**
+     * 获取课程章节
+     */
+    List<CourseSectionDto> queryCourseSection(int courseId);
 
 }

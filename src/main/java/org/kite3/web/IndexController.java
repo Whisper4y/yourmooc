@@ -23,55 +23,55 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping("")
 public class IndexController {
 
-	@Autowired
-	private SiteCarouseService siteCarouselService;
+    @Autowired
+    private SiteCarouseService siteCarouselService;
 
-	@Autowired
-	private IndexBusiness indexBusiness;
+    @Autowired
+    private IndexBusiness indexBusiness;
 
-	@Autowired
-	private CourseService courseService;
+    @Autowired
+    private CourseService courseService;
 
-	@Autowired
-	private UserService userService;
+    @Autowired
+    private UserService userService;
 
-	@RequestMapping("/")
-	public ModelAndView indexPage() {
-		System.out.println("999");
-		return index();
-	}
-	
-	@RequestMapping("/index")
-	public ModelAndView index() {
-		ModelAndView mv = new ModelAndView("index");
+    @RequestMapping("/")
+    public ModelAndView indexPage() {
+        System.out.println("999");
+        return index();
+    }
 
-		// 加载轮播
-		List<SiteCarousel> carouselList = siteCarouselService.queryCarousels(4);
-		mv.addObject("carouselList", carouselList);
+    @RequestMapping("/index")
+    public ModelAndView index() {
+        ModelAndView mv = new ModelAndView("index");
 
-		// 课程分类(一级分类，其中二级分类作为一级分类DTO的一个字段存在）
-		List<CourseClassifyDto> classifys = indexBusiness.queryAllClassify();
-		// 课程推荐（推荐课程也是作为一级分类DTO的一个字段存在）
-		indexBusiness.prepareRecomdCourses(classifys);
-		mv.addObject("classifys", classifys);
+        // 加载轮播
+        List<SiteCarousel> carouselList = siteCarouselService.queryCarousels(4);
+        mv.addObject("carouselList", carouselList);
 
-		// 获取5门好课推荐，根据权重（weight）进行排序
-		CourseQueryDto queryEntity = new CourseQueryDto();
-		queryEntity.setCount(5);
-		List<Course> goodCourseList = this.courseService.queryList(queryEntity);
-		mv.addObject("goodCourseList", goodCourseList);
+        // 课程分类(一级分类，其中二级分类作为一级分类DTO的一个字段存在）
+        List<CourseClassifyDto> classifys = indexBusiness.queryAllClassify();
+        // 课程推荐（推荐课程也是作为一级分类DTO的一个字段存在）
+        indexBusiness.prepareRecomdCourses(classifys);
+        mv.addObject("classifys", classifys);
 
-		// 获取7门java课程，根据权重（学习数量studyCount）进行排序
-		queryEntity.setCount(7);
-		queryEntity.setSubClassify("java");// java分类
-		List<Course> javaCourseList = this.courseService.queryList(queryEntity);
-		mv.addObject("javaCourseList", javaCourseList);
+        // 获取5门好课推荐，根据权重（weight）进行排序
+        CourseQueryDto queryEntity = new CourseQueryDto();
+        queryEntity.setCount(5);
+        List<Course> goodCourseList = this.courseService.queryList(queryEntity);
+        mv.addObject("goodCourseList", goodCourseList);
 
-		// 加载讲师
-		List<User> recomdTeacherList = userService.queryRecomd();
-		mv.addObject("recomdTeacherList", recomdTeacherList);
+        // 获取7门java课程，根据权重（学习数量studyCount）进行排序
+        queryEntity.setCount(7);
+        queryEntity.setSubClassify("java");// java分类
+        List<Course> javaCourseList = this.courseService.queryList(queryEntity);
+        mv.addObject("javaCourseList", javaCourseList);
 
-		return mv;
-	}
+        // 加载讲师
+        List<User> recomdTeacherList = userService.queryRecomd();
+        mv.addObject("recomdTeacherList", recomdTeacherList);
+
+        return mv;
+    }
 
 }

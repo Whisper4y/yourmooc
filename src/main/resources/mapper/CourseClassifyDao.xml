@@ -1,39 +1,39 @@
 <!DOCTYPE mapper
-        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="org.kite3.dao.CourseClassifyDao">
 
-	<select id="queryById" resultType="CourseClassify" parameterType="int">
-		SELECT *
-		FROM t_course_classify
-		WHERE id = #{id, jdbcType=INTEGER}
-	</select>
+  <select id="queryById" resultType="CourseClassify" parameterType="int">
+    SELECT *
+    FROM t_course_classify
+    WHERE id = #{id, jdbcType=INTEGER}
+  </select>
 
-	<select id="getByCode" resultType="CourseClassify" parameterType="String">
-		SELECT *
-		FROM t_course_classify
-		WHERE code = #{code, jdbcType=VARCHAR}
-	</select>
-	
-	<select id="queryAll" resultType="CourseClassify">
-		SELECT *
-		FROM t_course_classify
-		ORDER BY parent_code asc;
-	</select>
-	
-	<select id="queryByCondition" resultType="CourseClassify" parameterType="CourseClassify">
-		SELECT *
-		FROM t_course_classify
-		<trim prefix="WHERE" prefixOverrides="AND |OR "> 
-			<if test="code != null">
-				AND code = #{code}
-			</if>
-			<if test="parentCode != null">
-				AND parent_code = #{parentCode}
-			</if>
-		</trim>
-		ORDER BY parent_code
-	</select>
+  <select id="getByCode" resultType="CourseClassify" parameterType="String">
+    SELECT *
+    FROM t_course_classify
+    WHERE code = #{code, jdbcType=VARCHAR}
+  </select>
+
+  <select id="queryAll" resultType="CourseClassify">
+    SELECT *
+    FROM t_course_classify
+    ORDER BY parent_code asc;
+  </select>
+
+  <select id="queryByCondition" resultType="CourseClassify" parameterType="CourseClassify">
+    SELECT *
+    FROM t_course_classify
+    <trim prefix="WHERE" prefixOverrides="AND |OR ">
+      <if test="code != null">
+        AND code = #{code}
+      </if>
+      <if test="parentCode != null">
+        AND parent_code = #{parentCode}
+      </if>
+    </trim>
+    ORDER BY parent_code
+  </select>
 
 </mapper>

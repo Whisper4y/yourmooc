@@ -29,7 +29,6 @@ import java.io.IOException;
  * 个人中心
  *
  * @author kite3
- *
  */
 @Controller
 @RequestMapping("/user")

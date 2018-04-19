@@ -1,69 +1,69 @@
 <!DOCTYPE mapper
-        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="org.kite3.dao.CourseDao">
 
-	<select id="queryById" resultType="Course" parameterType="int">
-		SELECT * 
-		FROM t_course
-		WHERE id = #{id, jdbcType=INTEGER}
-	</select>
+  <select id="queryById" resultType="Course" parameterType="int">
+    SELECT *
+    FROM t_course
+    WHERE id = #{id, jdbcType=INTEGER}
+  </select>
 
-	<select id="queryList" resultType="Course" parameterType="org.kite3.dto.CourseQueryDto">
-		SELECT *
-		FROM t_course
-		<trim prefix="WHERE " prefixOverrides="AND |OR ">
-			<if test="classify != null">
-				AND classify = #{classify}
-			</if>
-			<if test="subClassify != null">
-				AND sub_classify = #{subClassify}
-			</if>
-			<if test="username != null">
-				AND username = #{username}
-			</if>
-		</trim>
-		ORDER BY weight DESC
-		<if test="start != null and end != null">
-			LIMIT #{start, jdbcType=INTEGER} , #{end, jdbcType=INTEGER}
-		</if>
-	</select>
-	
-	<select id="getTotalItemsCount" resultType="Integer" parameterType="Course">
-		SELECT COUNT(*) FROM t_course
-		<trim prefix="WHERE " prefixOverrides="AND |OR "> 
-			<if test="classify != null">
-				AND classify = #{classify}
-			</if>
-			<if test="subClassify != null">
-				AND sub_classify = #{subClassify}
-			</if>
-			<if test="name != null">
-				AND name like CONCAT('%',#{name},'%' ) 
-			</if>
-		</trim>
-	</select>
-	
-	
-	<select id="queryPage" resultType="Course">
-		SELECT *
-		FROM t_course
-		<trim prefix="WHERE " prefixOverrides="AND |OR "> 
-			<if test="param1.classify != null">
-				AND classify = #{param1.classify}
-			</if>
-			<if test="param1.subClassify != null">
-				AND sub_classify = #{param1.subClassify}
-			</if>
-			<if test="param1.name != null">
-				AND name like CONCAT('%',#{param1.name},'%' ) 
-			</if>
-		</trim>
-		<if test="param2.sortField != null and param2.sortField != ''">
-		ORDER BY ${param2.sortField}  ${param2.sortDirection}
-		</if>
-		LIMIT #{param2.startIndex, jdbcType=INTEGER} , #{param2.pageSize, jdbcType=INTEGER} 
-	</select>
+  <select id="queryList" resultType="Course" parameterType="org.kite3.dto.CourseQueryDto">
+    SELECT *
+    FROM t_course
+    <trim prefix="WHERE " prefixOverrides="AND |OR ">
+      <if test="classify != null">
+        AND classify = #{classify}
+      </if>
+      <if test="subClassify != null">
+        AND sub_classify = #{subClassify}
+      </if>
+      <if test="username != null">
+        AND username = #{username}
+      </if>
+    </trim>
+    ORDER BY weight DESC
+    <if test="start != null and end != null">
+      LIMIT #{start, jdbcType=INTEGER} , #{end, jdbcType=INTEGER}
+    </if>
+  </select>
+
+  <select id="getTotalItemsCount" resultType="Integer" parameterType="Course">
+    SELECT COUNT(*) FROM t_course
+    <trim prefix="WHERE " prefixOverrides="AND |OR ">
+      <if test="classify != null">
+        AND classify = #{classify}
+      </if>
+      <if test="subClassify != null">
+        AND sub_classify = #{subClassify}
+      </if>
+      <if test="name != null">
+        AND name like CONCAT('%',#{name},'%' )
+      </if>
+    </trim>
+  </select>
+
+
+  <select id="queryPage" resultType="Course">
+    SELECT *
+    FROM t_course
+    <trim prefix="WHERE " prefixOverrides="AND |OR ">
+      <if test="param1.classify != null">
+        AND classify = #{param1.classify}
+      </if>
+      <if test="param1.subClassify != null">
+        AND sub_classify = #{param1.subClassify}
+      </if>
+      <if test="param1.name != null">
+        AND name like CONCAT('%',#{param1.name},'%' )
+      </if>
+    </trim>
+    <if test="param2.sortField != null and param2.sortField != ''">
+      ORDER BY ${param2.sortField} ${param2.sortDirection}
+    </if>
+    LIMIT #{param2.startIndex, jdbcType=INTEGER} , #{param2.pageSize, jdbcType=INTEGER}
+  </select>
 
 </mapper>

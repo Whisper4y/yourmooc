@@ -17,35 +17,35 @@ import org.springframework.stereotype.Service;
 @Service
 public class CourseBusinessImpl implements CourseBusiness {
 
-	@Autowired
-	private CourseSectionService courseSectionService;
+    @Autowired
+    private CourseSectionService courseSectionService;
 
-	/**
-	 * 获取课程章节
-	 * 
-	 * 数据结构依旧是Map，且"节"以一个字段的方式存储在"章"中
-	 */
-	public List<CourseSectionDto> queryCourseSection(int courseId) {
-		List<CourseSectionDto> resultList = new ArrayList<CourseSectionDto>();
-		CourseSection queryEntity = new CourseSection();
-		queryEntity.setCourseId(courseId);
+    /**
+     * 获取课程章节
+     * <p>
+     * 数据结构依旧是Map，且"节"以一个字段的方式存储在"章"中
+     */
+    public List<CourseSectionDto> queryCourseSection(int courseId) {
+        List<CourseSectionDto> resultList = new ArrayList<CourseSectionDto>();
+        CourseSection queryEntity = new CourseSection();
+        queryEntity.setCourseId(courseId);
 
-		Map<Integer, CourseSectionDto> tmpMap = new LinkedHashMap<Integer, CourseSectionDto>();
-		Iterator<CourseSection> it = courseSectionService.queryAll(queryEntity).iterator();
-		while (it.hasNext()) {
-			CourseSection item = it.next();
-			if (Integer.valueOf(0).equals(item.getParentId())) { // 章
-				CourseSectionDto dto = new CourseSectionDto();
-				BeanUtils.copyProperties(item, dto);
-				tmpMap.put(dto.getId(), dto);
-			} else {
-				tmpMap.get(item.getParentId()).getSections().add(item);// 小节添加到大章中
-			}
-		}
-		for (CourseSectionDto dto : tmpMap.values()) {
-			resultList.add(dto);
-		}
-		return resultList;
-	}
+        Map<Integer, CourseSectionDto> tmpMap = new LinkedHashMap<Integer, CourseSectionDto>();
+        Iterator<CourseSection> it = courseSectionService.queryAll(queryEntity).iterator();
+        while (it.hasNext()) {
+            CourseSection item = it.next();
+            if (Integer.valueOf(0).equals(item.getParentId())) { // 章
+                CourseSectionDto dto = new CourseSectionDto();
+                BeanUtils.copyProperties(item, dto);
+                tmpMap.put(dto.getId(), dto);
+            } else {
+                tmpMap.get(item.getParentId()).getSections().add(item);// 小节添加到大章中
+            }
+        }
+        for (CourseSectionDto dto : tmpMap.values()) {
+            resultList.add(dto);
+        }
+        return resultList;
+    }
 
 }

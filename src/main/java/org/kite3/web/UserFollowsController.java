@@ -23,61 +23,61 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping("/follow")
 public class UserFollowsController {
 
-	@Autowired
-	private UserFollowsService userFollowsService;
+    @Autowired
+    private UserFollowsService userFollowsService;
 
-	@Autowired
-	UserService userService;
+    @Autowired
+    UserService userService;
 
-	@RequestMapping(value = "/doFollow")
-	@ResponseBody
-	public String doFollow(int followId, HttpServletRequest request) {
-		// 获取当前用户id
-		String curUserName = (String) request.getSession().getAttribute("username");
-		User user = new User();
-		user = userService.getByUsername(curUserName);
-		int curUserId = user.getId();
+    @RequestMapping(value = "/doFollow")
+    @ResponseBody
+    public String doFollow(int followId, HttpServletRequest request) {
+        // 获取当前用户id
+        String curUserName = (String) request.getSession().getAttribute("username");
+        User user = new User();
+        user = userService.getByUsername(curUserName);
+        int curUserId = user.getId();
 
-		UserFollows userFollows = new UserFollows();
-		userFollows.setUserId(curUserId);
-		userFollows.setFollowId(followId);
-		userFollows.setFollowName(userService.getById(followId).getUsername());
-		userFollows.setCreateTime(new Date());
+        UserFollows userFollows = new UserFollows();
+        userFollows.setUserId(curUserId);
+        userFollows.setFollowId(followId);
+        userFollows.setFollowName(userService.getById(followId).getUsername());
+        userFollows.setCreateTime(new Date());
 
-		List<UserFollows> list = userFollowsService.queryAll(userFollows);
+        List<UserFollows> list = userFollowsService.queryAll(userFollows);
 
-		if (!CollectionUtils.isEmpty(list)) {
-			userFollowsService.delete(list.get(0));
-			return new JsonView(0).toString();  // 取消关注
-		} else {
-			userFollowsService.createSelectivity(userFollows);
-			return new JsonView(1).toString();  // 关注成功
-		}
-	}
+        if (!CollectionUtils.isEmpty(list)) {
+            userFollowsService.delete(list.get(0));
+            return new JsonView(0).toString();  // 取消关注
+        } else {
+            userFollowsService.createSelectivity(userFollows);
+            return new JsonView(1).toString();  // 关注成功
+        }
+    }
 
-	/**
-	 * 是否已经关注
-	 */
-	@RequestMapping(value = "/isFollow")
-	@ResponseBody
-	public String isFollow(int followId, HttpServletRequest request) {
-		// 获取当前用户id
-		String curUserName = (String) request.getSession().getAttribute("username");
-		User user = new User();
-		user = userService.getByUsername(curUserName);
-		int curUserId = user.getId();
+    /**
+     * 是否已经关注
+     */
+    @RequestMapping(value = "/isFollow")
+    @ResponseBody
+    public String isFollow(int followId, HttpServletRequest request) {
+        // 获取当前用户id
+        String curUserName = (String) request.getSession().getAttribute("username");
+        User user = new User();
+        user = userService.getByUsername(curUserName);
+        int curUserId = user.getId();
 
-		UserFollows userFollows = new UserFollows();
-		userFollows.setUserId(curUserId);
-		userFollows.setFollowId(followId);
+        UserFollows userFollows = new UserFollows();
+        userFollows.setUserId(curUserId);
+        userFollows.setFollowId(followId);
 
-		List<UserFollows> list = userFollowsService.queryAll(userFollows);
+        List<UserFollows> list = userFollowsService.queryAll(userFollows);
 
-		if (!CollectionUtils.isEmpty(list)) { // 关注成功
-			return new JsonView(1).toString();
-		} else {
-			return new JsonView(0).toString(); // 取消关注
-		}
-	}
+        if (!CollectionUtils.isEmpty(list)) { // 关注成功
+            return new JsonView(1).toString();
+        } else {
+            return new JsonView(0).toString(); // 取消关注
+        }
+    }
 
 }

@@ -1,157 +1,157 @@
 <!DOCTYPE mapper
-        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="org.kite3.dao.UserDao">
 
-	<select id="getById" resultType="User" parameterType="int">
-		SELECT *
-		FROM t_user
-		WHERE id = #{id, jdbcType=INTEGER}
-	</select>
+  <select id="getById" resultType="User" parameterType="int">
+    SELECT *
+    FROM t_user
+    WHERE id = #{id, jdbcType=INTEGER}
+  </select>
 
-	<select id="getByUsername" resultType="User" parameterType="String">
-		SELECT *
-		FROM t_user
-		WHERE username = #{username, jdbcType=VARCHAR}
-	</select>
+  <select id="getByUsername" resultType="User" parameterType="String">
+    SELECT *
+    FROM t_user
+    WHERE username = #{username, jdbcType=VARCHAR}
+  </select>
 
-	<select id="getByUsernameAndPassword" resultType="User" parameterType="User">
-		SELECT *
-		FROM t_user
-		WHERE username = #{username, jdbcType=VARCHAR}
-		AND password = #{password, jdbcType=VARCHAR}
-	</select>
+  <select id="getByUsernameAndPassword" resultType="User" parameterType="User">
+    SELECT *
+    FROM t_user
+    WHERE username = #{username, jdbcType=VARCHAR}
+    AND password = #{password, jdbcType=VARCHAR}
+  </select>
 
-	<select id="queryRecomd" resultType="User">
-		SELECT *
-		FROM t_user
-		ORDER BY weight DESC
-		LIMIT 5
-	</select>
-	
-	<insert id="createSelectivity" parameterType="User" flushCache="true"  useGeneratedKeys="true" keyProperty="id"  >
-		INSERT INTO t_user
-		<trim prefix="(" suffix=")"  suffixOverrides="," >
-			<if test="username != null ">
-			username,
-			</if>
-			<if test="password != null ">
-			password,
-			</if>
-			<if test="gender != null ">
-			gender,
-			</if>
-			<if test="header != null ">
-			header,
-			</if>
-			<if test="phone != null ">
-			phone,
-			</if>
-			<if test="education != null ">
-			education,
-			</if>
-			<if test="collegeName != null ">
-			college_name,
-			</if>
-			<if test="title != null ">
-			title,
-			</if>
-			<if test="sign != null ">
-			sign,
-			</if>
-			<if test="province != null ">
-			province,
-			</if>
-			<if test="city != null ">
-			city,
-			</if>
-			<if test="weight != null ">
-			weight,
-			</if>
-		</trim>
-		VALUES
-		<trim prefix="(" suffix=")"  suffixOverrides="," >
-			<if test="username != null ">
-			#{username},
-			</if>
-			<if test="password != null ">
-			#{password},
-			</if>
-			<if test="gender != null ">
-			#{gender},
-			</if>
-			<if test="header != null ">
-			#{header},
-			</if>
-			<if test="phone != null ">
-			#{phone},
-			</if>
-			<if test="education != null ">
-			#{education},
-			</if>
-			<if test="collegeName != null ">
-			#{collegeName},
-			</if>
-			<if test="title != null ">
-			#{title},
-			</if>
-			<if test="sign != null ">
-			#{sign},
-			</if>
-			<if test="province != null ">
-			#{province},
-			</if>
-			<if test="city != null ">
-			#{city},
-			</if>
-			<if test="weight != null ">
-			#{weight},
-			</if>
-		</trim>
-	</insert>
-	
-	<update id="updateSelectivity" parameterType="User" flushCache="true">
-		UPDATE t_user
-		<trim prefix="SET" suffixOverrides="," >
-			<if test="username != null ">
-			username = #{username, jdbcType=VARCHAR},
-			</if>
-			<if test="password != null ">
-			password = #{password, jdbcType=VARCHAR},
-			</if>
-			<if test="gender != null ">
-			gender = #{gender, jdbcType=INTEGER},
-			</if>
-			<if test="header != null ">
-			header = #{header, jdbcType=VARCHAR},
-			</if>
-			<if test="phone != null ">
-			phone = #{phone, jdbcType=VARCHAR},
-			</if>
-			<if test="education != null ">
-			education = #{education, jdbcType=VARCHAR},
-			</if>
-			<if test="collegeName != null ">
-			college_name = #{collegeName, jdbcType=VARCHAR},
-			</if>
-			<if test="title != null ">
-			title = #{title, jdbcType=VARCHAR},
-			</if>
-			<if test="sign != null ">
-			sign = #{sign, jdbcType=VARCHAR},
-			</if>
-			<if test="province != null ">
-			province = #{province, jdbcType=VARCHAR},
-			</if>
-			<if test="city != null ">
-			city = #{city, jdbcType=VARCHAR},
-			</if>
-			<if test="weight != null ">
-			weight = #{weight, jdbcType=VARCHAR},
-			</if>
-		</trim>
-		WHERE id = #{id, jdbcType = INTEGER}
-	</update>
+  <select id="queryRecomd" resultType="User">
+    SELECT *
+    FROM t_user
+    ORDER BY weight DESC
+    LIMIT 5
+  </select>
+
+  <insert id="createSelectivity" parameterType="User" flushCache="true" useGeneratedKeys="true" keyProperty="id">
+    INSERT INTO t_user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="username != null ">
+        username,
+      </if>
+      <if test="password != null ">
+        password,
+      </if>
+      <if test="gender != null ">
+        gender,
+      </if>
+      <if test="header != null ">
+        header,
+      </if>
+      <if test="phone != null ">
+        phone,
+      </if>
+      <if test="education != null ">
+        education,
+      </if>
+      <if test="collegeName != null ">
+        college_name,
+      </if>
+      <if test="title != null ">
+        title,
+      </if>
+      <if test="sign != null ">
+        sign,
+      </if>
+      <if test="province != null ">
+        province,
+      </if>
+      <if test="city != null ">
+        city,
+      </if>
+      <if test="weight != null ">
+        weight,
+      </if>
+    </trim>
+    VALUES
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="username != null ">
+        #{username},
+      </if>
+      <if test="password != null ">
+        #{password},
+      </if>
+      <if test="gender != null ">
+        #{gender},
+      </if>
+      <if test="header != null ">
+        #{header},
+      </if>
+      <if test="phone != null ">
+        #{phone},
+      </if>
+      <if test="education != null ">
+        #{education},
+      </if>
+      <if test="collegeName != null ">
+        #{collegeName},
+      </if>
+      <if test="title != null ">
+        #{title},
+      </if>
+      <if test="sign != null ">
+        #{sign},
+      </if>
+      <if test="province != null ">
+        #{province},
+      </if>
+      <if test="city != null ">
+        #{city},
+      </if>
+      <if test="weight != null ">
+        #{weight},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateSelectivity" parameterType="User" flushCache="true">
+    UPDATE t_user
+    <trim prefix="SET" suffixOverrides=",">
+      <if test="username != null ">
+        username = #{username, jdbcType=VARCHAR},
+      </if>
+      <if test="password != null ">
+        password = #{password, jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null ">
+        gender = #{gender, jdbcType=INTEGER},
+      </if>
+      <if test="header != null ">
+        header = #{header, jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null ">
+        phone = #{phone, jdbcType=VARCHAR},
+      </if>
+      <if test="education != null ">
+        education = #{education, jdbcType=VARCHAR},
+      </if>
+      <if test="collegeName != null ">
+        college_name = #{collegeName, jdbcType=VARCHAR},
+      </if>
+      <if test="title != null ">
+        title = #{title, jdbcType=VARCHAR},
+      </if>
+      <if test="sign != null ">
+        sign = #{sign, jdbcType=VARCHAR},
+      </if>
+      <if test="province != null ">
+        province = #{province, jdbcType=VARCHAR},
+      </if>
+      <if test="city != null ">
+        city = #{city, jdbcType=VARCHAR},
+      </if>
+      <if test="weight != null ">
+        weight = #{weight, jdbcType=VARCHAR},
+      </if>
+    </trim>
+    WHERE id = #{id, jdbcType = INTEGER}
+  </update>
 
 </mapper>
