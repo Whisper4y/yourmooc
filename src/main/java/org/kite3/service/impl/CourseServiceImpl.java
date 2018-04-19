@@ -37,4 +37,9 @@ public class CourseServiceImpl implements CourseService {
 		return page;
 	}
 
+	@Override
+	public void updateStudyCount(Course queryEntity) {
+		courseDao.updateStudyCount(queryEntity);
+	}
+
 }

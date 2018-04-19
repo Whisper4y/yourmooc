@@ -66,4 +66,10 @@
     LIMIT #{param2.startIndex, jdbcType=INTEGER} , #{param2.pageSize, jdbcType=INTEGER}
   </select>
 
+  <update id="updateStudyCount" parameterType="Course" flushCache="true">
+    UPDATE t_course
+    SET study_count = #{studyCount, jdbcType=INTEGER}
+    WHERE id = #{id, jdbcType = INTEGER}
+  </update>
+
 </mapper>

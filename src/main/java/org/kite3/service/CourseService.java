@@ -26,4 +26,9 @@ public interface CourseService {
      **/
     public TailPage<Course> queryPage(Course queryEntity, TailPage<Course> page);
 
+    /**
+     * 记录学习人数
+     */
+    public void updateStudyCount(Course queryEntity);
+
 }

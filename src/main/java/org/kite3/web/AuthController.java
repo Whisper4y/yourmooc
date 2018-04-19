@@ -64,33 +64,25 @@ public class AuthController {
      * @param identiryCode 验证码
      */
     @RequestMapping(value = "/doLogin")
-    public ModelAndView doLogin(User user, String identiryCode, HttpServletRequest request) {
-        // 判断验证码
+    @ResponseBody
+    public String doLogin(User user, String identiryCode, HttpServletRequest request) {
         if (identiryCode != null && !identiryCode.equalsIgnoreCase((String) request.getSession().getAttribute("random"))) {
-            ModelAndView mv = new ModelAndView("redirect:login");
-            // TODO：失败重定向后如何提示用户？
-            mv.addObject("errCode", 1);
-            return mv;
+            // 验证码错误返回1
+            return JsonView.render(1);
         }
         User tmpUser = userService.getByUsername(user.getUsername());
         if (tmpUser == null) {
-            ModelAndView mv = new ModelAndView("redirect:login");
-            request.getSession().setAttribute("errCode", "账号或密码错误！");
-            // TODO：失败重定向后如何提示用户？
-            mv.addObject("errCode", 2);
-            return mv;
+            // 用户不存在错误返回2
+            return JsonView.render(2);
         } else {
             if (!tmpUser.getPassword().equals(user.getPassword())) {
-                ModelAndView mv = new ModelAndView("redirect:login");
-                // TODO：失败重定向后如何提示用户？
-                mv.addObject("errCode", 3);
-                return mv;
+                // 密码错误返回3
+                return JsonView.render(3);
             }
         }
         // 验证通过
         request.getSession().setAttribute("username", user.getUsername());
-        ModelAndView mv = new ModelAndView("redirect:/index");
-        return mv;
+        return JsonView.render(0);
     }
 
 

@@ -25,16 +25,16 @@
 
 			<div class="course-meta">
 
-				<c:if test="${empty session_username && not empty chaptSections}">
+				<c:if test="${empty session_username || empty curCourseSection}">
 					<c:forEach items="${chaptSections}" var="section" varStatus="status">
 						<c:if test="${status.index == 0}">
-							<a href="<%=path %>/course/video/${section.id}" class="learn-btn">开始学习</a>
+							<a href="javascript:void(0)" class="learn-btn" onClick="playVideo(${section.id});">开始学习</a>
 						</c:if>
 					</c:forEach>
 				</c:if>
 
 				<c:if test="${not empty session_username && not empty curCourseSection}">
-					<a href="<%=path %>/course/video/${curCourseSection.id}" class="learn-btn">继续学习</a>
+					<a href="javascript:void(0)" class="learn-btn" onClick="playVideo(${curCourseSection.id});">继续学习</a>
 					<div class="static-item">
 						<div class="meta">上次学到</div>
 						<div class="meta-value"> ${curCourseSection.name} </div>
@@ -102,7 +102,7 @@
 						<ul class="chapter-sub">
 							<c:if test="${not empty chaptSection.sections}">
 								<c:forEach items="${chaptSection.sections}" var="section" varStatus="status">
-									<a href="<%=path %>/course/video/${section.id}">
+									<a href="javascript:void(0)" onClick="playVideo(${section.id});">
 										<li class="chapter-sub-li">
 											<i class="icon-video">▶</i> ${section.name} (${section.time})
 										</li>
@@ -140,7 +140,7 @@
 		<h4 class="mt-50">推荐课程</h4>
 		<c:if test="${not empty recomdCourseList && fn:length(recomdCourseList) > 0}">
 			<c:forEach items="${recomdCourseList}" var="recomdCourse" varStatus="status">
-				<a href="<%=path %>/course/learn/${recomdCourse.id}" class="mb-5">
+				<a href="javascript:void(0)" class="mb-5" onclick="playVideo(${recomdCourse.id})">
 					<li class="ellipsis oc-color-hover" title="${recomdCourse.name}"> ${recomdCourse.name} </li>
 				</a>
 			</c:forEach>
@@ -156,102 +156,123 @@
 
 
 <script>
-    $(function () {
-        /**
-         * 实现 章节鼠标焦点 动态效果
-         */
-        $('.chapter li').hover(function () {
-            $(this).find('.icon-video').css('color', '#FFF');
-        }, function () {
-            $(this).find('.icon-video').css('color', '#777');
-        });
+  $(function () {
+    /**
+     * 实现 章节鼠标焦点 动态效果
+     */
+    $('.chapter li').hover(function () {
+      $(this).find('.icon-video').css('color', '#FFF');
+    }, function () {
+      $(this).find('.icon-video').css('color', '#777');
+    });
 
-        $('.js-open').click(function () {
-            var display = $(this).parent().find('ul').css('display');
-            if (display == 'none') {
-                $(this).parent().find('ul').css('display', 'block');
-                $(this).find('.drop-down').html('▼');
-            } else {
-                $(this).parent().find('ul').css('display', 'none');
-                $(this).find('.drop-down').html('▲');
-            }
-        });
-
-
-        /**
-         * 回显操作：判断是否收藏或者关注
-         */
-        var session_username = '${session_username}';
-        var courseId = '${course.id}';
-        var followId = '${courseTeacher.id}';
-        if (session_username) {
-            if (courseId) {
-                var url = '<%=path %>/collections/isCollection';
-                doCollect(courseId, url);
-            }
-            if (followId) {
-                var url_2 = '<%=path %>/follow/isFollow';
-                doFollow(followId, url_2);
-            }
-        }
+    $('.js-open').click(function () {
+      var display = $(this).parent().find('ul').css('display');
+      if (display === 'none') {
+        $(this).parent().find('ul').css('display', 'block');
+        $(this).find('.drop-down').html('▼');
+      } else {
+        $(this).parent().find('ul').css('display', 'none');
+        $(this).find('.drop-down').html('▲');
+      }
     });
 
 
-    /*
-		* 收藏
-		*/
-    function doCollect(courseId, url) {
-        var session_username = '${session_username}';
-        if (!session_username) {
-            window.alert('请先登录');
-            return;
-        }
-        if (url === undefined) {
-            url = '<%=path %>/collections/doCollection';
-        }
-        $.ajax({
-            url: url,
-            type: 'POST',
-            dataType: 'json',
-            data: {
-                "courseId": courseId
-            },
-            success: function (resp) {
-                if (resp.errcode === 1) { //已收藏
-                    $('#collectionSpan').attr('class', 'followed');
-                } else if (resp.errcode === 0) { //取消收藏
-                    $('#collectionSpan').attr('class', 'following');
-                }
-            }
-        });
+    /**
+     * 回显操作：判断是否收藏或者关注
+     */
+    var session_username = '${session_username}';
+    var courseId = '${course.id}';
+    var followId = '${courseTeacher.id}';
+    if (session_username) {
+      if (courseId) {
+        var url = '<%=path %>/collections/isCollection';
+        doCollect(courseId, url);
+      }
+      if (followId) {
+        var url_2 = '<%=path %>/follow/isFollow';
+        doFollow(followId, url_2);
+      }
     }
+  });
 
 
-    //关注
-    function doFollow(followId, url) {
-        var session_username = '${session_username}';
-        if (!session_username) {
-            window.alert('请先登录');
-            return;
-        }
-        if (url === undefined) {
-            url = '<%=path %>/follow/doFollow';
-        }
-        $.ajax({
-            url: url,
-            type: 'POST',
-            dataType: 'json',
-            data: {"followId": followId},
-            success: function (resp) {
-                if (resp.errcode === 1) {
-                    $('#followSpan').html('已关注');
-                } else if (resp.errcode === 0) {
-                    $('#followSpan').html('+关注');
-                }
-            }
-        });
+  /*
+	* 收藏
+	*/
+  function doCollect(courseId, url) {
+    var session_username = '${session_username}';
+    if (!isLogin()) {
+      location.href = "<%=path %>/auth/login";
+      return;
     }
+    if (url === undefined) {
+      url = '<%=path %>/collections/doCollection';
+    }
+    $.ajax({
+      url: url,
+      type: 'POST',
+      dataType: 'json',
+      data: {
+        "courseId": courseId
+      },
+      success: function (resp) {
+        if (resp.errcode === 1) { //已收藏
+          $('#collectionSpan').attr('class', 'followed');
+        } else if (resp.errcode === 0) { //取消收藏
+          $('#collectionSpan').attr('class', 'following');
+        }
+      }
+    });
+  }
 
+
+  //关注
+  function doFollow(followId, url) {
+    var session_username = '${session_username}';
+    if (!isLogin()) {
+      location.href = "<%=path %>/auth/login";
+      return;
+    }
+    if (url === undefined) {
+      url = '<%=path %>/follow/doFollow';
+    }
+    $.ajax({
+      url: url,
+      type: 'POST',
+      dataType: 'json',
+      data: {"followId": followId},
+      success: function (resp) {
+        if (resp.errcode === 1) {
+          $('#followSpan').html('已关注');
+        } else if (resp.errcode === 0) {
+          $('#followSpan').html('+关注');
+        }
+      }
+    });
+  }
+
+  /**
+	 * 播放视频之前进行登录判断
+   */
+	function playVideo( id) {
+    if (!isLogin()) {
+      location.href = "<%=path %>/auth/login";
+		} else {
+      location.href = "<%=path %>/course/video/" + id;
+		}
+  }
+
+  /**
+	 * 判断是否登录
+   */
+  function isLogin() {
+    var session_username = '${session_username}';
+    if (!session_username) {
+      return false;
+    }
+    return true;
+  }
 
 </script>
 </body>

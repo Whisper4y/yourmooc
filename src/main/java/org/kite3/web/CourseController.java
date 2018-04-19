@@ -107,15 +107,19 @@ public class CourseController {
      * 课程评论页面
      */
     @RequestMapping("/segment")
-    public ModelAndView segment(CourseComment queryEntity, TailPage<CourseComment> page) {
+    public ModelAndView segment(CourseComment queryEntity, TailPage<CourseComment> page, HttpServletRequest request) {
 
         ModelAndView mv = new ModelAndView("learnComment");
 
+        Integer courseId = queryEntity.getCourseId();
+
         // 获取课程
-        Course course = courseService.getById(queryEntity.getCourseId());
-        if (null == course)
-            return new ModelAndView("error/404");
+        Course course = courseService.getById(courseId);
         mv.addObject("course", course);
+
+        // 获取课程章节
+        List<CourseSectionDto> chaptSections = this.courseBusiness.queryCourseSection(courseId);
+        mv.addObject("chaptSections", chaptSections);
 
         // 获取讲师
         User courseTeacher = userService.getByUsername(course.getUsername());
@@ -130,6 +134,23 @@ public class CourseController {
 
         TailPage<CourseComment> commentPage = courseCommentService.queryPage(queryEntity, page);
         mv.addObject("page", commentPage);
+
+        // 当前学习的章节（未登录不展示）
+        if (!StringUtils.isEmpty((String) request.getSession().getAttribute("username"))) {
+            String curUserName = (String) request.getSession().getAttribute("username");
+            User user = new User();
+            user = userService.getByUsername(curUserName);
+            int curUserId = user.getId();
+
+            UserCourseSection userCourseSection = new UserCourseSection();
+            userCourseSection.setCourseId(courseId);
+            userCourseSection.setUserId(curUserId);
+            userCourseSection = userCourseSectionService.queryLatest(userCourseSection);
+            if (null != userCourseSection) {
+                CourseSection curCourseSection = courseSectionService.getById(userCourseSection.getSectionId());
+                mv.addObject("curCourseSection", curCourseSection);
+            }
+        }
 
         mv.addObject("isComment", "yes");
 
@@ -146,27 +167,34 @@ public class CourseController {
 
         // 当前章节
         CourseSection courseSection = courseSectionService.getById(sectionId);
-        if (null == courseSection)
-            return new ModelAndView("error/404");
+        // 当前章节所在课程
+        Integer curCourseId = courseSection.getCourseId();
         mv.addObject("courseSection", courseSection);
 
         // 课程章节列表
         List<CourseSectionDto> chaptSections = this.courseBusiness.queryCourseSection(courseSection.getCourseId());
         mv.addObject("chaptSections", chaptSections);
 
-        // 全部评论
+        // 评论
         CourseComment courseCommentEntity = new CourseComment();
         courseCommentEntity.setSectionId(sectionId);
         List<CourseComment> comments = courseCommentService.queryAll(courseCommentEntity);
         mv.addObject("comments", comments);
 
-        // 记录当前学习的章节（未登录不记录）
+        // 记录当前学习人数以及章节（未登录不记录）
         if (!StringUtils.isEmpty((String) request.getSession().getAttribute("username"))) {
             String curUserName = (String) request.getSession().getAttribute("username");
             User user = new User();
             user = userService.getByUsername(curUserName);
             int curUserId = user.getId();
 
+            // 记录当前学习人数
+            Course course = courseService.getById(curCourseId);
+            Integer count = course.getStudyCount();
+            course.setStudyCount(++count);
+            courseService.updateStudyCount(course);
+
+            // 记录当前章节
             UserCourseSection userCourseSection = new UserCourseSection();
             userCourseSection.setUserId(curUserId); // 当前用户id
             userCourseSection.setCourseId(courseSection.getCourseId()); // 当前课程id
