@@ -23,7 +23,7 @@
 				<!-- 轮播图 -->
 				<c:if test="${not empty carouselList && fn:length(carouselList) > 0}">
 					<c:forEach items="${carouselList}" var="carousel" varStatus="status">
-						<a href="${carousel.url}">
+						<a href="javascript:void(0)">
 							<div class="main-bg-item"
 									 style="background-image: url('<%=basePath %>resources/images/${carousel.picture}'); ">
 							</div>

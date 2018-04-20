@@ -98,7 +98,7 @@
 						<div class="comment-content">${item.content}</div>
 						<div class="comment-footer">
 							<c:if test="${not empty item.createTime}">
-								<span>时间：<fmt:formatDate value="${item.createTime}" pattern="yyyy-MM-dd"/> </span>
+								<span>时间：<fmt:formatDate value="${item.createTime}" pattern="yyyy-MM-dd HH:mm:ss"/> </span>
 							</c:if>
 							<a href="#/${item.id}">${item.sectionTitle}</a>
 						</div>
@@ -165,7 +165,6 @@
 	* 收藏
 	*/
   function doCollect(courseId, url) {
-    var session_username = '${session_username}';
     if (!isLogin()) {
       location.href = "<%=path %>/auth/login";
       return;
@@ -193,7 +192,6 @@
 
   //关注
   function doFollow(followId, url) {
-    var session_username = '${session_username}';
     if (!isLogin()) {
       location.href = "<%=path %>/auth/login";
       return;

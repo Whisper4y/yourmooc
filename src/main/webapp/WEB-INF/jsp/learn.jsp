@@ -201,7 +201,6 @@
 	* 收藏
 	*/
   function doCollect(courseId, url) {
-    var session_username = '${session_username}';
     if (!isLogin()) {
       location.href = "<%=path %>/auth/login";
       return;
@@ -229,7 +228,6 @@
 
   //关注
   function doFollow(followId, url) {
-    var session_username = '${session_username}';
     if (!isLogin()) {
       location.href = "<%=path %>/auth/login";
       return;
