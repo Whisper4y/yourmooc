@@ -20,6 +20,11 @@ public class UserCourseSectionServiceImpl implements UserCourseSectionService {
 		return entityDao.getById(id);
 	}
 
+	@Override
+	public List<UserCourseSection> queryByUserId(int id) {
+		return entityDao.queryByUserId(id);
+	}
+
 	public List<UserCourseSection> queryAll(UserCourseSection queryEntity) {
 		return entityDao.queryAll(queryEntity);
 	}

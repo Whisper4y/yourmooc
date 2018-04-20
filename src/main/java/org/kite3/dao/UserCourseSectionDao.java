@@ -14,6 +14,11 @@ public interface UserCourseSectionDao {
     public UserCourseSection getById(int id);
 
     /**
+     * 根据user_id获取
+     */
+    public List<UserCourseSection> queryByUserId(int id);
+
+    /**
      * 获取所有
      **/
     public List<UserCourseSection> queryAll(UserCourseSection queryEntity);

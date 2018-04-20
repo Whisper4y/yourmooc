@@ -189,10 +189,27 @@ public class CourseController {
             int curUserId = user.getId();
 
             // 记录当前学习人数
-            Course course = courseService.getById(curCourseId);
-            Integer count = course.getStudyCount();
-            course.setStudyCount(++count);
-            courseService.updateStudyCount(course);
+            List<UserCourseSection> ucs = userCourseSectionService.queryByUserId(curUserId);
+            if (ucs != null && ucs.size() == 0) {
+                Course course = courseService.getById(curCourseId);
+                Integer count = course.getStudyCount();
+                course.setStudyCount(++count);
+                courseService.updateStudyCount(course);
+            }
+            if (ucs != null && ucs.size() != 0) {
+                Boolean flag = false;
+                for (UserCourseSection u : ucs) {
+                    if (u.getCourseId() == curCourseId) {
+                        flag = true;
+                    }
+                }
+                if (!flag) {
+                    Course course = courseService.getById(curCourseId);
+                    Integer count = course.getStudyCount();
+                    course.setStudyCount(++count);
+                    courseService.updateStudyCount(course);
+                }
+            }
 
             // 记录当前章节
             UserCourseSection userCourseSection = new UserCourseSection();
