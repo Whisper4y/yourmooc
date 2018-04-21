@@ -106,8 +106,8 @@
   </insert>
 
   <update id="update" parameterType="UserCourseSection" flushCache="true">
-    UPDATE t_user_course_section SET
-    update_time = #{updateTime}
+    UPDATE t_user_course_section
+    SET update_time = #{updateTime}
     WHERE id = #{id}
   </update>
 
