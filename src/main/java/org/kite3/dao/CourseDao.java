@@ -11,26 +11,26 @@ public interface CourseDao {
     /**
      * 根据id获取
      **/
-    public Course queryById(int id);
+    Course queryById(int id);
 
     /**
      * 根据条件获取所有， queryEntity：查询条件；
      **/
-    public List<Course> queryList(CourseQueryDto queryEntity);
+    List<Course> queryList(CourseQueryDto queryEntity);
 
     /**
      * 获取总数量
      **/
-    public Integer getTotalItemsCount(Course queryEntity);
+    Integer getTotalItemsCount(Course queryEntity);
 
     /**
      * 分页获取
      **/
-    public List<Course> queryPage(Course queryEntity, TailPage<Course> page);
+    List<Course> queryPage(Course queryEntity, TailPage<Course> page);
 
     /**
      * 记录学习人数
      */
-    public void updateStudyCount(Course queryEntity);
+    void updateStudyCount(Course queryEntity);
 
 }

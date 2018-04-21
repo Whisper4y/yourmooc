@@ -118,7 +118,7 @@ public class CourseController {
         mv.addObject("course", course);
 
         // 获取课程章节
-        List<CourseSectionDto> chaptSections = this.courseBusiness.queryCourseSection(courseId);
+        List<CourseSectionDto> chaptSections = courseBusiness.queryCourseSection(courseId);
         mv.addObject("chaptSections", chaptSections);
 
         // 获取讲师

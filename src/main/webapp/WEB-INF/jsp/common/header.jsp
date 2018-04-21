@@ -12,7 +12,7 @@
 		<c:choose>
 			<c:when test="${not empty username}">
 				<nav class="header-nav" style="float:right">
-					<a href="javascript:void(0)" class="header-nav-item"
+					<a href="/yourmooc/user/course" class="header-nav-item"
 						 style="margin-right:0px;font-size:14px;"> ${username} </a>
 					<a href="http://localhost:8080/yourmooc/auth/logout" class="header-nav-item"
 						 style="margin-left:0px;font-size:14px;"> 退出 </a>

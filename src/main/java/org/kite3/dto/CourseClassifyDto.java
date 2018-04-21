@@ -7,7 +7,7 @@ import org.kite3.entity.Course;
 import org.kite3.entity.CourseClassify;
 
 /**
- * 课程分类DTO，继承于CourseClassify
+ * 课程分类DTO
  *
  * @author kite3
  */

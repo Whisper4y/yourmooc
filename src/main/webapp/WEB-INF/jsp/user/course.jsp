@@ -46,7 +46,7 @@
 							</c:if>
 							</span>
 								<a href="<%=path %>/course/video/${item.sectionId}">
-									<span class="continue-btn" style="margin-left: 50px;">继续学习</span>
+									<span class="continue-btn" style="margin-left: 50px;border-radius: 25px;">继续学习</span>
 								</a>
 							</div>
 						</div>

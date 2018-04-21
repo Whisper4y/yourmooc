@@ -37,7 +37,6 @@ public class IndexController {
 
     @RequestMapping("/")
     public ModelAndView indexPage() {
-        System.out.println("999");
         return index();
     }
 
@@ -49,9 +48,9 @@ public class IndexController {
         List<SiteCarousel> carouselList = siteCarouselService.queryCarousels(4);
         mv.addObject("carouselList", carouselList);
 
-        // 课程分类(一级分类，其中二级分类作为一级分类DTO的一个字段存在）
+        // 课程分类
         List<CourseClassifyDto> classifys = indexBusiness.queryAllClassify();
-        // 课程推荐（推荐课程也是作为一级分类DTO的一个字段存在）
+        // 课程推荐
         indexBusiness.prepareRecomdCourses(classifys);
         mv.addObject("classifys", classifys);
 

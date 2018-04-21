@@ -9,7 +9,7 @@ public interface SiteCarouselDao {
     /**
      * 获取轮播
      */
-    public List<SiteCarousel> queryCarousels(int count);
+    List<SiteCarousel> queryCarousels(int count);
 
 
 }

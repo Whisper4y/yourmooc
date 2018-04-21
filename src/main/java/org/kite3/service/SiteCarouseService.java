@@ -9,6 +9,6 @@ public interface SiteCarouseService {
     /**
      * 获取轮播
      **/
-    public List<SiteCarousel> queryCarousels(int count);
+    List<SiteCarousel> queryCarousels(int count);
 
 }

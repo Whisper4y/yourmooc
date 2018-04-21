@@ -10,31 +10,31 @@ public interface UserCollectionsDao {
     /**
      * 根据id获取
      **/
-    public UserCollections getById(int id);
+    UserCollections getById(int id);
 
     /**
      * 获取所有
      **/
-    public List<UserCollections> queryAll(UserCollections queryEntity);
+    List<UserCollections> queryAll(UserCollections queryEntity);
 
     /**
      * 获取总数量
      **/
-    public int getTotalItemsCount(UserCollections queryEntity);
+    int getTotalItemsCount(UserCollections queryEntity);
 
     /**
      * 分页获取
      **/
-    public List<UserCollections> queryPage(UserCollections queryEntity, TailPage<UserCollections> page);
+    List<UserCollections> queryPage(UserCollections queryEntity, TailPage<UserCollections> page);
 
     /**
      * 删除
      **/
-    public void delete(UserCollections entity);
+    void delete(UserCollections entity);
 
     /**
      * 创建新记录
      **/
-    public void createSelectivity(UserCollections entity);
+    void createSelectivity(UserCollections entity);
 
 }

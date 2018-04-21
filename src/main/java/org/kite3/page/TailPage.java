@@ -18,9 +18,6 @@ public class TailPage<E> extends AbstractPage<E> {
 
     /**
      * 构造函数，将一个已有的分页对象中的分页参数，设置给自己，items需独立设置
-     *
-     * @param page
-     * @param items
      */
     public TailPage(Page<E> page, Collection<E> items, int itemsTotalCount) {
         this(page.getPageNum(), page.getPageSize(), itemsTotalCount, items);

@@ -28,19 +28,14 @@ public class AuthController {
 
     /**
      * 实现注册
-     *
-     * @param User         注册的用户名和密码组成的实体类
-     * @param identiryCode 验证码
      */
     @RequestMapping(value = "/doRegister")
     @ResponseBody
     public String doRegister(User User, String identiryCode, HttpServletRequest request) {
-        // 如果验证码输入错误，则返回2
         if (identiryCode != null && !identiryCode.equalsIgnoreCase((String) request.getSession().getAttribute("random"))) {
             return JsonView.render(2);
         }
         User tmpUser = userService.getByUsername(User.getUsername());
-        // 如果用户已注册，则返回1
         if (tmpUser != null) {
             return JsonView.render(1);
         } else {
@@ -59,28 +54,21 @@ public class AuthController {
 
     /**
      * 实现登录
-     *
-     * @param user         登录的用户名和密码组成的实体类
-     * @param identiryCode 验证码
      */
     @RequestMapping(value = "/doLogin")
     @ResponseBody
     public String doLogin(User user, String identiryCode, HttpServletRequest request) {
         if (identiryCode != null && !identiryCode.equalsIgnoreCase((String) request.getSession().getAttribute("random"))) {
-            // 验证码错误返回1
             return JsonView.render(1);
         }
         User tmpUser = userService.getByUsername(user.getUsername());
         if (tmpUser == null) {
-            // 用户不存在错误返回2
             return JsonView.render(2);
         } else {
             if (!tmpUser.getPassword().equals(user.getPassword())) {
-                // 密码错误返回3
                 return JsonView.render(3);
             }
         }
-        // 验证通过
         request.getSession().setAttribute("username", user.getUsername());
         return JsonView.render(0);
     }
@@ -91,9 +79,7 @@ public class AuthController {
      */
     @RequestMapping(value = "/logout")
     public ModelAndView logout(HttpServletRequest request) {
-        // false代表：不创建session对象，只是从request中获取。
         request.getSession(false).removeAttribute("username");
-        // 重定向到登录页面
         return new ModelAndView("redirect:login");
     }
 

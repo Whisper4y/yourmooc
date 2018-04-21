@@ -165,17 +165,17 @@ public class UserController {
     public String savePasswd(String oldPassword, String password, String rePassword, HttpServletRequest request) {
         User currentUser = userService.getByUsername((String) request.getSession().getAttribute("username"));
         if (null == currentUser) {
-            return JsonView.render(1, "用户不存在！");
+            return JsonView.render(1);
         }
         oldPassword = oldPassword.trim();
         if (!oldPassword.equals(currentUser.getPassword())) {
-            return JsonView.render(1, "The old password is wrong !");
+            return JsonView.render(2);
         }
         if (StringUtils.isEmpty(password.trim())) {
-            return JsonView.render(1, "New password cannot be empty!");
+            return JsonView.render(3);
         }
         if (!password.trim().equals(rePassword.trim())) {
-            return JsonView.render(1, "The new password is inconsistent with the duplicate password!");
+            return JsonView.render(4);
         }
         currentUser.setPassword(password);
         userService.updateSelectivity(currentUser);

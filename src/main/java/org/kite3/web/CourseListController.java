@@ -42,9 +42,8 @@ public class CourseListController {
         String curCode = "-1"; // 当前点击下的一级分类
         String curSubCode = "-2"; // 当前点击下的当前二级分类
 
-        // 加载所有课程分类
+        // 一级分类
         Map<String, CourseClassifyDto> classifyMap = indexBusiness.queryAllClassifyMap();
-        // 所有一级分类（二级分类则以一个字段的方式存储在一级分类DTO中）
         List<CourseClassifyDto> classifysList = new ArrayList<CourseClassifyDto>();
         for (CourseClassifyDto dto : classifyMap.values()) {
             classifysList.add(dto);
@@ -54,6 +53,7 @@ public class CourseListController {
         // 当前分类
         CourseClassify curClassify = courseClassifyService.getByCode(c);
 
+        // 二级分类
         if (null == curClassify) {// 没有此分类，加载所有二级分类
             List<CourseClassify> subClassifys = new ArrayList<CourseClassify>();
             for (CourseClassifyDto dto : classifyMap.values()) {
@@ -73,8 +73,6 @@ public class CourseListController {
         mv.addObject("curCode", curCode); // 当前点击下的一级分类
         mv.addObject("curSubCode", curSubCode); // 当前点击下的二级分类
 
-        // 分页排序数据
-        // 分页的分类参数
         Course queryEntity = new Course();
         if (!"-1".equals(curCode)) {
             queryEntity.setClassify(curCode);
