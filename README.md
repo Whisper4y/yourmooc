@@ -10,7 +10,7 @@
 前端：Bootstrap、jQuery
 
 
-#截图：
+
 ## 一、首页
 
 ### 1.1 首页轮播
@@ -40,7 +40,7 @@
 ![Alt text](https://github.com/kite3/yourmooc/raw/master/Screenshots/视频播放+发表评论.png)
 
 
-### 3.3课程评论
+### 3.3 课程评论
 
 ![Alt text](https://github.com/kite3/yourmooc/raw/master/Screenshots/评论1.png)
 
